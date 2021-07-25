@@ -1,0 +1,1 @@
+ALTER TABLE hashp_table ADD PARTITION;

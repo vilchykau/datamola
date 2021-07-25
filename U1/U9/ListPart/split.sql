@@ -1,0 +1,5 @@
+ALTER TABLE list_table 
+   SPLIT PARTITION p1 VALUES ('OR', 'WA') 
+   INTO 
+    ( PARTITION p1,
+      PARTITION p2);

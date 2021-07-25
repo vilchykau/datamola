@@ -1,0 +1,2 @@
+ALTER TABLE hashp_table
+     COALESCE PARTITION;
