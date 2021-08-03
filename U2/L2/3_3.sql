@@ -10,11 +10,10 @@ with prods as (
         inner join SA_TYPE_PRODUCT tp on tp.pr_t_id = pp.pr_t_id
        -- WHERE to_date(pp.event_dt_str, 'MM/DD/YYYY') = TO_DATE('01/01/2020','DD/MM/YYYY')
 ) SELECT 
-    day,
-    month,
+    decode(grouping(day),1,'ALL MONTH',day) day,
+    decode(grouping(month),1,'ALL YEAR',month) month,
     year,
-    fact_name, 
-    dept_name, 
-    product_name 
+    fact_name,
+    SUM(sale_price)
     from prods
-    rollup(year, month, day);
+    group by fact_name, rollup(year, month, day);
