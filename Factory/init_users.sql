@@ -1,0 +1,28 @@
+drop user U_FACT_CLS;
+drop user U_FACT_EXT;
+drop user U_FACT_STAR;
+
+create user U_FACT_CLS
+  identified by "123456"
+    default tablespace TS_FACT_CLS;
+
+
+create user U_FACT_EXT
+  identified by "123456"
+    default tablespace TS_FACT_EXT;
+
+
+create user U_FACT_STAR
+  identified by "123456"
+    default tablespace TS_FACT_STAR;
+
+
+GRANT CONNECT, RESOURCE, CREATE PROCEDURE TO U_FACT_CLS;
+GRANT CONNECT, RESOURCE TO U_FACT_EXT;
+GRANT CONNECT, RESOURCE TO U_FACT_STAR;
+
+GRANT UNLIMITED TABLESPACE TO U_FACT_CLS;
+GRANT UNLIMITED TABLESPACE TO U_FACT_EXT;
+GRANT UNLIMITED TABLESPACE TO U_FACT_STAR;
+
+COMMIT;
