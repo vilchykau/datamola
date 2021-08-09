@@ -51,7 +51,15 @@ CREATE OR REPLACE PACKAGE BODY PKG_ELT_DIM_FACT_LOCATION AS
                        , fact_loc.STATE
                        , fact_loc.CITY)
                 RETURNING LOC_ID INTO loc_id;
+            ELSE
+                SELECT LOC.LOC_ID
+                INTO loc_id
+                FROM U_FACT_STAR.DIM_GEO_LOCATIONS LOC
+                WHERE COUNTRY = fact_loc.COUNTY
+                  AND STATE = fact_loc.STATE
+                  AND CITY = fact_loc.CITY;
             END IF;
+
 
             SELECT COUNT(1)
             INTO is_in_table
