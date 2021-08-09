@@ -1,17 +1,8 @@
 CREATE OR REPLACE PACKAGE BODY PKG_ELT_DIM_TYPE_PRODUCT AS
     PROCEDURE CLEANSING_TYPE_PRODUCT IS
     BEGIN
-        EXECUTE IMMEDIATE 'TRUNCATE TABLE U_FACT_CLS.DW_TYPE_PRODUCT';
-
-        INSERT INTO U_FACT_CLS.DW_TYPE_PRODUCT ( PR_T_ID
-                                               , NAME
-                                               , META
-                                               , SALE_PRICE)
-        SELECT PR_T_ID
-             , NAME
-             , META
-             , SALE_PRICE
-        FROM U_FACT_EXT.SA_TYPE_PRODUCT;
+        PKG_ELT_ASSIST.MOVE_DBMS_CUR('U_FACT_EXT.SA_TYPE_PRODUCT',
+            'U_FACT_CLS.DW_TYPE_PRODUCT');
     END;
 
     PROCEDURE LOAD IS

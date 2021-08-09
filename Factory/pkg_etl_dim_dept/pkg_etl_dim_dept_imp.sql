@@ -1,14 +1,7 @@
 CREATE OR REPLACE PACKAGE BODY U_FACT_CLS.PKG_ELT_DIM_DEPT AS
     PROCEDURE CLEAN IS
     BEGIN
-        EXECUTE IMMEDIATE 'TRUNCATE TABLE U_FACT_CLS.DW_DEPT';
-        INSERT INTO U_FACT_CLS.DW_DEPT ( NAME
-                                       , FACT_ID
-                                       , PARENT_DEPT)
-        SELECT NAME
-             , FACT_ID
-             , PARENT_DEPT
-        FROM U_FACT_EXT.SA_DEPT;
+        PKG_ELT_ASSIST.MOVE('U_FACT_EXT.SA_DEPT', 'U_FACT_CLS.DW_DEPT');
     END;
 
 

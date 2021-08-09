@@ -1,5 +1,6 @@
 CREATE OR REPLACE PACKAGE BODY PKG_ELT_DIM_FACT_LOCATION AS
     PROCEDURE CLEAN IS
+        TYPE CURTYPE IS REF CURSOR;
         TYPE Fact_Loc_T IS TABLE OF U_FACT_EXT.SA_FACTORY%ROWTYPE;
         CURSOR cur IS SELECT *
                       FROM U_FACT_EXT.SA_FACTORY;
@@ -20,6 +21,7 @@ CREATE OR REPLACE PACKAGE BODY PKG_ELT_DIM_FACT_LOCATION AS
                     cur_get(idx).COUNTY,
                     cur_get(idx).STATE,
                     cur_get(idx).CITY);
+
     END;
 
 
