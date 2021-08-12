@@ -154,10 +154,76 @@ create index U_FACT_STAR.IDX_PROD on U_FACT_STAR.DIM_TYPE_PRODUCT_SCD (
                                                                        is_active ASC
     );
 
+
+
+
+
+alter table U_FACT_STAR.FACT_PRODUCED_PRODUCT
+   drop constraint FK_FACT_PRO_REFERENCE_DIM_TYPE;
+
+alter table U_FACT_STAR.FACT_PRODUCED_PRODUCT
+   drop constraint FK_FACT_PRO_REFERENCE_DIM_WORK;
+
+alter table U_FACT_STAR.FACT_PRODUCED_PRODUCT
+   drop constraint FK_FACT_PRO_REFERENCE_DIM_FACT;
+
+alter table U_FACT_STAR.FACT_PRODUCED_PRODUCT
+   drop constraint FK_FACT_PRO_REFERENCE_DIM_DEPT;
+
+alter table U_FACT_STAR.FACT_PRODUCED_PRODUCT
+   drop constraint FK_FACT_PRO_REFERENCE_DIM_GEO_;
+
+alter table U_FACT_STAR.FACT_PRODUCED_PRODUCT
+   drop constraint FK_FACT_PRO_REFERENCE_DM_TIME;
+
+drop table U_FACT_STAR.FACT_PRODUCED_PRODUCT cascade constraints;
+
+/*==============================================================*/
+/* Table: FACT_PRODUCED_PRODUCT                                 */
+/*==============================================================*/
+create table U_FACT_STAR.FACT_PRODUCED_PRODUCT (
+   det_no               NUMBER(22,0)          not null,
+   event_dt             DATE,
+   insert_dt            DATE,
+   time_id              NUMBER(22,0),
+   wk_id                NUMBER(22,0),
+   fact_id              NUMBER(22,0),
+   dept_id              NUMBER(22,0),
+   loc_id               NUMBER(22,0),
+   pr_t_id              NUMBER(22,0),
+   constraint PK_FACT_PRODUCED_PRODUCT primary key (det_no)
+);
+
+alter table U_FACT_STAR.FACT_PRODUCED_PRODUCT
+   add constraint FK_FACT_PRO_REFERENCE_DIM_TYPE foreign key ()
+      references U_FACT_STAR.DIM_TYPE_PRODUCT_SCD;
+
+alter table U_FACT_STAR.FACT_PRODUCED_PRODUCT
+   add constraint FK_FACT_PRO_REFERENCE_DIM_WORK foreign key (wk_id, )
+      references U_FACT_STAR.DIM_WORKER_SCD (wk_id, valid_from);
+
+alter table U_FACT_STAR.FACT_PRODUCED_PRODUCT
+   add constraint FK_FACT_PRO_REFERENCE_DIM_FACT foreign key (fact_id)
+      references U_FACT_STAR.DIM_FACTORY (fact_id);
+
+alter table U_FACT_STAR.FACT_PRODUCED_PRODUCT
+   add constraint FK_FACT_PRO_REFERENCE_DIM_DEPT foreign key (dept_id)
+      references U_FACT_STAR.DIM_DEPT (dept_id);
+
+alter table U_FACT_STAR.FACT_PRODUCED_PRODUCT
+   add constraint FK_FACT_PRO_REFERENCE_DIM_GEO_ foreign key (loc_id)
+      references U_FACT_STAR.DIM_GEO_LOCATIONS (loc_id);
+
+alter table U_FACT_STAR.FACT_PRODUCED_PRODUCT
+   add constraint FK_FACT_PRO_REFERENCE_DM_TIME foreign key (time_id)
+      references U_FACT_STAR.DM_TIME (time_id);
+
+
 grant select, insert, update, delete on U_FACT_STAR.DIM_TYPE_PRODUCT_SCD to U_FACT_CLS;
 grant select, insert, update, delete on U_FACT_STAR.DIM_FACTORY to U_FACT_CLS;
 grant select, insert, update, delete on U_FACT_STAR.DIM_GEO_LOCATIONS to U_FACT_CLS;
 grant select, insert, update, delete on U_FACT_STAR.DIM_DEPT to U_FACT_CLS;
 grant select, insert, update, delete on U_FACT_STAR.DIM_WORKER_SCD to U_FACT_CLS;
+grant select, insert, update, delete on U_FACT_STAR.FACT_PRODUCED_PRODUCT to U_FACT_CLS;
 
 COMMIT;

@@ -14,5 +14,8 @@ BEGIN
     -- ..................................
     PKG_ETL_DIM_WORKER.CLEAN;
     PKG_ETL_DIM_WORKER.LOAD;
+
+    PKG_ETL_FACT_PP.CLEAN;
+    PKG_ETL_FACT_PP.LOAD;
     COMMIT;
 END;

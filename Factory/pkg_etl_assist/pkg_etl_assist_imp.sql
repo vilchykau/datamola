@@ -77,4 +77,13 @@ CREATE OR REPLACE PACKAGE BODY U_FACT_CLS.PKG_ELT_ASSIST AS
 
         DBMS_SQL.CLOSE_CURSOR(curid);
     END ;
+
+
+--     FUNCTION GET_DEN(foo NUMBER)
+--         RETURN den_table_t;
+--                 PIPELINED IS
+--         rw DEN_ROW_T;
+--     BEGIN
+--         NULL;
+--     END;
 END;
